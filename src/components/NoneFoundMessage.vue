@@ -10,6 +10,6 @@ div {
 }
 
 .dark div {
-  @apply bg-slate-700 text-white;
+  @apply bg-slate-700 text-white font-semibold;
 }
 </style>

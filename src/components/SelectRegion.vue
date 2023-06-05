@@ -1,5 +1,10 @@
 <template>
-  <select name="" id="selectRegion" @change="countriesStore.searchWithSelect" v-model="countriesStore.regionSelected">
+  <select
+    name=""
+    id="selectRegion"
+    @change="countriesStore.searchWithSelect"
+    v-model="countriesStore.regionSelected"
+  >
     <option disabled value="" selected>Filter by Region</option>
     <option value="all">All</option>
     <option value="africa">Africa</option>
@@ -11,10 +16,9 @@
 </template>
 
 <script setup lang="ts">
-  import { useCountriesStore } from '../stores/counter'
+import { useCountriesStore } from '../stores/counter'
 
-  const countriesStore = useCountriesStore()
-
+const countriesStore = useCountriesStore()
 </script>
 
 <style>

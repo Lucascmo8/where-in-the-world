@@ -23,14 +23,20 @@
       class="ContainerButtonCountries"
       v-show="countriesStore.showCountries.countries.length > 20"
     >
-      <button class="buttonSeeMore" v-show="countriesStore.showCountries.countries.length > visibleCountries" @click="moreVisibleCountries">See more...</button>
+      <button
+        class="buttonSeeMore"
+        v-show="countriesStore.showCountries.countries.length > visibleCountries"
+        @click="moreVisibleCountries"
+      >
+        See more...
+      </button>
       <button class="buttonToTop" @click="scroolToTop"><i class="uil uil-arrow-up"></i></button>
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch} from 'vue'
+import { computed, ref, watch } from 'vue'
 import SearchBar from '../components/SearchBar.vue'
 import SelectRegion from '../components/SelectRegion.vue'
 import CoutryCard from '../components/CoutryCard.vue'
@@ -62,8 +68,8 @@ const moreVisibleCountries = () => {
 watch(
   () => countriesStore.showCountries.countries.length,
   (newCountriesLength) => {
-    console.log(newCountriesLength);
-    visibleCountries.value = 20;
+    console.log(newCountriesLength)
+    visibleCountries.value = 20
   }
 )
 

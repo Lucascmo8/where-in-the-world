@@ -27,7 +27,7 @@ export const useCountriesStore = defineStore('countries', () => {
 
   const searchWithText = (text: string) => {
     regionSelected.value = ''
-    
+
     if (text.trim() == '') {
       fetchCountries()
       return
@@ -45,16 +45,12 @@ export const useCountriesStore = defineStore('countries', () => {
       }
       if (country.name.common.toLowerCase() === text.trim().toLowerCase()) {
         return true
-      }else if(
-        country.name.official.toLowerCase() === text.trim().toLowerCase()
-      ){
+      } else if (country.name.official.toLowerCase() === text.trim().toLowerCase()) {
         return true
-      }else if(
-        country.cca3.toLowerCase() === text.trim().toLowerCase()
-      ){
+      } else if (country.cca3.toLowerCase() === text.trim().toLowerCase()) {
         return true
       }
-       return false
+      return false
     })
 
     showCountries.countries = filteredCountry
@@ -62,12 +58,14 @@ export const useCountriesStore = defineStore('countries', () => {
     console.log(showCountries)
   }
 
-  const searchWithSelect = ()=>{
-    if(regionSelected.value == 'all'){
+  const searchWithSelect = () => {
+    if (regionSelected.value == 'all') {
       showCountries.countries = allCountries.countries
       return
     }
-    showCountries.countries = allCountries.countries.filter((country:any) => country.region.toLowerCase() == regionSelected.value)
+    showCountries.countries = allCountries.countries.filter(
+      (country: any) => country.region.toLowerCase() == regionSelected.value
+    )
     console.log(showCountries.countries)
   }
 

@@ -13,9 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
-
-const props = defineProps({
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const myProps = defineProps({
   name: {
     type: String as () => string,
     required: true
@@ -48,7 +47,6 @@ const props = defineProps({
   @apply bg-gray-700 text-white;
 }
 
-
 img {
   @apply w-full h-1/2 rounded-t-lg;
 }
@@ -57,8 +55,8 @@ img {
   @apply w-full h-1/2 p-4  flex flex-col gap-2;
 }
 
-.cardText *{
-  @apply transition-none
+.cardText * {
+  @apply transition-none;
 }
 
 h2 {
