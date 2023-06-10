@@ -52,6 +52,9 @@ const seeCountryInBorder = (countryOnView:string)=>{
   countriesStore.getDetailsCountry(countryOnView)
 }
 
+const toHome = ()=>{
+  window.location.reload()
+}
 </script>
 
 <style scoped>
