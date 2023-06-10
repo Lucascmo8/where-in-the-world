@@ -95,16 +95,16 @@ export const useCountriesStore = defineStore('countries', () => {
   
   fetchCountries()
 
-  const getDetailsCountry = async (countryName:string) =>{
+  const getDetailsCountry = async (countryCode:string) =>{
     console.log(`foi2`)
     countriesInBorder.value.pop()
     try {
-      const response = await axios.get(`https://restcountries.com/v3.1/name/${countryName}`)
+      const response = await axios.get(`https://restcountries.com/v3.1/alpha/${countryCode}`)
       showCountry.country = response.data
     } catch (error) {
       console.error('Erro ao buscar o país:', error)
     }
-    countriesInBorder.value = allCountries.countries.filter((coutry:any)=>showCountry.country[0].borders.includes(coutry.cca3)).map((country:any)=>country.name.common)
+    countriesInBorder.value = allCountries.countries.filter((coutry:any)=>showCountry.country[0].borders.includes(coutry.cca3)).map((country:any)=>({name: country.name.common , code: country.cca3}))
 
     console.log(showCountry)
   }
@@ -113,7 +113,7 @@ export const useCountriesStore = defineStore('countries', () => {
     () => showCountry.country.length,
     (newCountry) => {
       console.log(newCountry)
-      countriesInBorder.value = allCountries.countries.filter((coutry:any)=>showCountry.country[0].borders.includes(coutry.cca3)).map((country:any)=>country.name.common)
+      countriesInBorder.value = allCountries.countries.filter((coutry:any)=>showCountry.country[0].borders.includes(coutry.cca3)).map((country:any)=>({name: country.name.common, code: country.cca3}))
     }
   )
 

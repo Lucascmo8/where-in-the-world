@@ -1,6 +1,6 @@
 <template>
   <main>
-    <button @click="toHome"><i class="uil uil-arrow-left"></i>Back</button>
+    <RouterLink to="/"><i class="uil uil-arrow-left"></i>Back</RouterLink>
     <p v-if="countriesStore.showCountry.country.length == 0">None Found</p>
     <div class="detailsContainer" v-else>
       <img
@@ -25,8 +25,9 @@
           <li><span>Languages:</span> {{ countriesStore.showCountry.country[0].currencies.name || "No Languages" }}</li>
         </ul>
         <div class="borderDetails">
-            <span>Border Countries:</span>
-            <button v-show="countriesStore.countriesInBorder.length > 0" v-for="(country , index) in countriesStore.countriesInBorder" :key="index" @click.prevent="seeCountryInBorder(country)">{{ country }}</button>
+            <span>Border Countries: </span>
+
+            <button v-show="countriesStore.countriesInBorder.length > 0" v-for="(country , index) in countriesStore.countriesInBorder" :key="index" @click.prevent="seeCountryInBorder(country.code)">{{ country.name }}</button>
             <p v-if="countriesStore.countriesInBorder.length == 0">No countries on border</p>
       </div>
       </div>
@@ -62,8 +63,8 @@ main {
   @apply w-full pt-24 px-4;
 }
 
-button {
-  @apply w-36 h-10 shadow-lg bg-white hover:bg-slate-300 rounded-lg;
+a {
+  @apply w-36 h-10 p-2 shadow-lg bg-white hover:bg-slate-300 rounded-lg;
 }
 
 .detailsContainer{
@@ -71,7 +72,7 @@ button {
 }
 
 img{
-  @apply lg:w-1/2
+  @apply w-full lg:w-[500px]
 }
 
 .dark button {
@@ -96,5 +97,9 @@ span{
 
 .borderDetails{
   @apply col-start-1 col-end-3
+}
+
+button {
+  @apply w-36 h-auto mr-2 mb-2 p-2 shadow-lg bg-white hover:bg-slate-300 rounded-lg
 }
 </style>

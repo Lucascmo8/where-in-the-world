@@ -1,5 +1,5 @@
 <template>
-  <div class="cardContainer">
+  <RouterLink :to="{ path: '/about/' + code }" class="cardContainer">
     <img :src="flag" alt="" />
     <div class="cardText">
       <h2>{{ name }}</h2>
@@ -9,7 +9,7 @@
         <li><span>Capital:</span> {{ capital[0] }}</li>
       </ul>
     </div>
-  </div>
+  </RouterLink>
 </template>
 
 <script setup lang="ts">
@@ -28,6 +28,10 @@ const myProps = defineProps({
     required: true
   },
   region: {
+    type: String as () => string,
+    required: true
+  },
+  code: {
     type: String as () => string,
     required: true
   },

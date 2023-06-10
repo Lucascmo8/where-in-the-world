@@ -16,6 +16,7 @@
         :flag="country.flags.png"
         :population="country.population"
         :region="country.region"
+        :code="country.cca3"
         :capital="country.capital || ['No capital']"
       />
     </div>
