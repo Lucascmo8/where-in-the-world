@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import SearchBar from '../components/SearchBar.vue'
 import SelectRegion from '../components/SelectRegion.vue'
 import CoutryCard from '../components/CoutryCard.vue'
@@ -53,17 +53,7 @@ const moreVisibleCountries = () => {
   if (visibleCountries.value < 250) {
     visibleCountries.value += 30
   }
-
-  console.log(countriesStore.showCountries.countries.length > visibleCountries.value)
 }
-
-// eslint-disable-next-line vue/return-in-computed-property
-// const limitedVisibleCountries = computed(() => {
-//   if (countriesStore.showCountries.countries.length <= 20) {
-//     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-//     visibleCountries.value = 20
-//   }
-// })
 
 watch(
   () => countriesStore.showCountries.countries.length,
