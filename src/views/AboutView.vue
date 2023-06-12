@@ -1,7 +1,7 @@
 <template>
   <main>
     <RouterLink to="/"><i class="uil uil-arrow-left"></i>Back</RouterLink>
-    <p v-if="countriesStore.showCountry.country.length == 0">None Found</p>
+    <NoneFoundMessage v-if="countriesStore.showCountry.country.length == 0" />
     <div class="detailsContainer" v-else>
       <img
         :src="countriesStore.showCountry.country[0].flags.png"
@@ -22,7 +22,7 @@
         <ul class="moreDetails">
           <li><span>Alpha Code:</span> {{ countriesStore.showCountry.country[0].cca3 || "No Alpha Code" }}</li>
           <li><span>Currencies:</span> {{ countriesStore.showCountry.country[0].currencies.name || "No Currencies" }}</li>
-          <li><span>Languages:</span> {{ countriesStore.showCountry.country[0].currencies.name || "No Languages" }}</li>
+          <li><span>Languages:</span> {{ Object.values(countriesStore.showCountry.country[0].languages).join(", ") || "No Languages" }}</li>
         </ul>
         <div class="borderDetails">
             <span>Border Countries: </span>
@@ -36,10 +36,12 @@
 </template>
 
 <script setup lang="ts">
+import NoneFoundMessage from '../components/NoneFoundMessage.vue'
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '../router';
 import { useCountriesStore } from '../stores/counter';
+import NoneFoundMessageVue from '../components/NoneFoundMessage.vue';
 
 const countriesStore = useCountriesStore()
 const route: any = useRoute()
@@ -67,20 +69,18 @@ a {
   @apply w-36 h-10 p-2 shadow-lg bg-white hover:bg-slate-300 rounded-lg;
 }
 
+
 .detailsContainer{
   @apply mt-8 lg:flex lg:gap-8
 }
 
 img{
-  @apply w-full lg:w-[500px]
+  @apply w-full object-fill md:max-h-96 md:w-[500px]
 }
 
-.dark button {
-  @apply bg-slate-700;
-}
 
 .textBox {
-  @apply flex flex-col gap-10 text-lg py-8 md:grid md:grid-cols-2 lg:py-0;
+  @apply flex flex-col gap-10 text-lg py-8 md:grid md:grid-cols-2 lg:py-0 lg:w-[755px] ;
 }
 
 h1{
@@ -95,11 +95,19 @@ span{
   @apply font-semibold;
 }
 
+.moreDetails{
+  @apply md:pt-12
+}
+
 .borderDetails{
-  @apply col-start-1 col-end-3
+  @apply col-start-1 col-end-3 flex flex-wrap gap-2 items-center
 }
 
 button {
-  @apply w-36 h-auto mr-2 mb-2 p-2 shadow-lg bg-white hover:bg-slate-300 rounded-lg
+  @apply w-36 h-20 p-2 shadow-lg bg-white outline-none  hover:bg-slate-300 focus:bg-slate-300 rounded-lg
+}
+
+.dark button, .dark a {
+  @apply bg-slate-700 hover:bg-slate-300;
 }
 </style>

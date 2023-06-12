@@ -6,7 +6,7 @@
 
 <style scoped>
 div {
-  @apply w-full bg-white p-4 items-center rounded-lg shadow-lg;
+  @apply w-full bg-white p-4 items-center rounded-lg shadow-lg mt-4;
 }
 
 .dark div {
