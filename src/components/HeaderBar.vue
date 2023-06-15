@@ -1,12 +1,12 @@
 <template>
-  <header>
+  <header class="darkStyleComponent">
     <h1>Where in the world?</h1>
     <button @click="darkModeStore.toggleMode">
       <i
         class="uil"
         :class="{
           'uil-moon': useDarkModeStore().isDarkMode,
-          'uil-sun': !useDarkModeStore().isDarkMode
+          'uil-sun': !useDarkModeStore().isDarkMode,
         }"
       ></i>
       {{ useDarkModeStore().isDarkMode ? `Dark Mode` : 'Light Mode' }}
@@ -22,10 +22,7 @@ const darkModeStore = useDarkModeStore()
 
 <style scoped>
 header {
-  @apply bg-white text-black flex justify-between p-4 fixed top-0 left-0 z-50 w-full shadow-lg cursor-default;
-}
-.dark header {
-  @apply bg-gray-700 text-white;
+  @apply fixed z-50 flex justify-between top-0 left-0 w-full  p-4 bg-white shadow-lg cursor-default;
 }
 
 h1 {

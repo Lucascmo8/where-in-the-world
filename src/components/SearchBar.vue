@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="coutriesStore.searchWithText(text)">
+  <form @submit.prevent="coutriesStore.searchWithText(text)" class="darkStyleComponent">
     <input type="text" placeholder="Search for a country..." v-model="text" />
     <button><i class="uil uil-search"></i></button>
   </form>
@@ -15,14 +15,10 @@ const text = ref<string>('')
 
 <style scoped>
 form {
-  @apply w-full sm:w-[512px] bg-white p-4 flex flex-row-reverse items-center gap-2 rounded-lg shadow-lg;
-}
-
-.dark form {
-  @apply bg-slate-700 text-white;
+  @apply flex flex-row-reverse items-center gap-2 w-full sm:w-[512px] p-4 bg-white rounded-lg shadow-lg;
 }
 
 input {
-  @apply bg-transparent w-full h-full outline-none focus:border-b;
+  @apply h-full w-full bg-transparent outline-none hover:border-b focus:border-b;
 }
 </style>

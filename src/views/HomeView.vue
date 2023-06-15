@@ -25,13 +25,14 @@
       v-show="countriesStore.showCountries.countries.length > 20"
     >
       <button
-        class="buttonSeeMore"
+        id="buttonSeeMore"
+        class="darkStyleComponent"
         v-show="countriesStore.showCountries.countries.length > visibleCountries"
         @click="moreVisibleCountries"
       >
         See more...
       </button>
-      <button class="buttonToTop" @click="scroolToTop"><i class="uil uil-arrow-up"></i></button>
+      <button id="buttonToTop" class="darkStyleComponent" @click="scroolToTop"><i class="uil uil-arrow-up"></i></button>
     </div>
   </main>
 </template>
@@ -67,7 +68,7 @@ watch(
 const scroolToTop = () => {
   window.scrollTo({
     top: 0,
-    behavior: 'smooth'
+    behavior: 'smooth',
   })
 }
 </script>
@@ -88,19 +89,11 @@ main {
   @apply grid grid-cols-3 p-2;
 }
 
-.buttonSeeMore {
-  @apply p-2 bg-white rounded-lg shadow-lg hover:bg-slate-300 col-start-2 justify-self-center;
+#buttonSeeMore {
+  @apply p-2 rounded-lg shadow-lg hover:bg-slate-400 col-start-2 justify-self-center;
 }
 
-.dark .buttonSeeMore {
-  @apply bg-slate-700 text-white hover:bg-slate-500;
-}
-
-.buttonToTop {
-  @apply w-8 h-8 p-2 bg-white rounded-full flex justify-center items-center col-start-3 justify-self-end hover:bg-slate-300;
-}
-
-.dark .buttonToTop {
-  @apply bg-slate-700 text-white hover:bg-slate-500;
+#buttonToTop {
+  @apply w-8 h-8 p-2 rounded-full flex justify-center shadow-lg items-center col-start-3 justify-self-end hover:bg-slate-400;
 }
 </style>

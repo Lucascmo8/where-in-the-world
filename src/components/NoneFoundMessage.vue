@@ -1,15 +1,11 @@
 <template>
-  <div>
+  <div class="darkStyleComponent">
     <p>No country was found...</p>
   </div>
 </template>
 
 <style scoped>
 div {
-  @apply w-full bg-white p-4 items-center rounded-lg shadow-lg mt-4;
-}
-
-.dark div {
-  @apply bg-slate-700 text-white font-semibold;
+  @apply w-full p-4 mt-4 font-semibold rounded-lg shadow-lg;
 }
 </style>

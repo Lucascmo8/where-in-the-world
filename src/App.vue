@@ -18,6 +18,10 @@ import HeaderBar from './components/HeaderBar.vue'
   @apply text-white;
 }
 
+.dark .darkStyleComponent{
+  @apply bg-gray-700
+}
+
 body {
   @apply bg-slate-100;
 }

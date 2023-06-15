@@ -1,7 +1,7 @@
 <template>
   <select
-    name=""
     id="selectRegion"
+    class="darkStyleComponent"
     @change="countriesStore.searchWithSelect"
     v-model="countriesStore.regionSelected"
   >
@@ -22,11 +22,7 @@ const countriesStore = useCountriesStore()
 </script>
 
 <style>
-select {
-  @apply w-52 bg-white p-4 flex items-center gap-2 rounded-lg shadow-lg;
-}
-
-.dark select {
-  @apply bg-slate-700 text-white;
-}
+  select {
+    @apply flex items-center gap-2 w-52 p-4 bg-white rounded-lg shadow-lg;
+  }
 </style>
