@@ -2,12 +2,12 @@
   <main>
     <div class="containerSearch">
       <SearchBar />
-      <SelectRegion />
+      <RegionSelect />
     </div>
     <div class="containerCountries">
-      <NoneFoundMessage v-show="countriesStore.showCountries.countries.length == 0" />
+      <NoneFoundMessage v-show="countriesStore.displayedCountries.length == 0" />
       <CoutryCard
-        v-for="(country, index) in countriesStore.showCountries.countries.slice(
+        v-for="(country, index) in countriesStore.displayedCountries.slice(
           0,
           visibleCountries
         )"
@@ -22,12 +22,12 @@
     </div>
     <div
       class="ContainerButtonCountries"
-      v-show="countriesStore.showCountries.countries.length > 20"
+      v-show="countriesStore.displayedCountries.length > 20"
     >
       <button
         id="buttonSeeMore"
         class="darkStyleComponent"
-        v-show="countriesStore.showCountries.countries.length > visibleCountries"
+        v-show="countriesStore.displayedCountries.length > visibleCountries"
         @click="moreVisibleCountries"
       >
         See more...
@@ -40,14 +40,13 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import SearchBar from '../components/SearchBar.vue'
-import SelectRegion from '../components/SelectRegion.vue'
+import RegionSelect from '../components/RegionSelect.vue'
 import CoutryCard from '../components/CoutryCard.vue'
 import NoneFoundMessage from '../components/NoneFoundMessage.vue'
-import { useCountriesStore } from '../stores/counter'
+import { useCountriesStore } from '../stores/countries'
+
 
 const countriesStore = useCountriesStore()
-
-countriesStore.fetchCountries()
 
 const visibleCountries = ref<number>(20)
 
@@ -58,7 +57,7 @@ const moreVisibleCountries = () => {
 }
 
 watch(
-  () => countriesStore.showCountries.countries.length,
+  () => countriesStore.displayedCountries.length,
   (newCountriesLength) => {
     console.log(newCountriesLength)
     visibleCountries.value = 20

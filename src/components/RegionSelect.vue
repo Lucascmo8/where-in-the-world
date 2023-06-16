@@ -1,9 +1,9 @@
 <template>
   <select
-    id="selectRegion"
+    id="RegionSelect"
     class="darkStyleComponent"
     @change="countriesStore.searchWithSelect"
-    v-model="countriesStore.regionSelected"
+    v-model="countriesStore.selectedRegion"
   >
     <option disabled value="" selected>Filter by Region</option>
     <option value="all">All</option>
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCountriesStore } from '../stores/counter'
+import { useCountriesStore } from '../stores/countries'
 
 const countriesStore = useCountriesStore()
 </script>

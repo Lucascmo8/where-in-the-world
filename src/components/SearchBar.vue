@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="coutriesStore.searchWithText(text)" class="darkStyleComponent">
+  <form @submit.prevent="coutriesStore.searchWithText(text.trim().toLowerCase())" class="darkStyleComponent">
     <input type="text" placeholder="Search for a country..." v-model="text" />
     <button><i class="uil uil-search"></i></button>
   </form>
@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useCountriesStore } from '../stores/counter'
+import { useCountriesStore } from '../stores/countries'
 const coutriesStore = useCountriesStore()
 
 const text = ref<string>('')

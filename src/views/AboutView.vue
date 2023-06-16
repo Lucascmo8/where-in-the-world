@@ -1,49 +1,49 @@
 <template>
   <main>
     <RouterLink to="/"><i class="uil uil-arrow-left"></i>Back</RouterLink>
-    <NoneFoundMessage v-if="countriesStore.showCountry.country.length == 0" />
+    <NoneFoundMessage v-if="countriesStore.currentCountry == undefined" />
     <div class="detailsContainer" v-else>
-      <img :src="countriesStore.showCountry.country[0].flags.png" alt="" />
+      <img :src="countriesStore.currentCountry.flags.png" alt="" />
 
       <div class="textBox">
         <div class="capitalDetails">
-          <h1>{{ countriesStore.showCountry.country[0].name.common }}</h1>
+          <h1>{{ countriesStore.currentCountry.name.common }}</h1>
           <ul>
             <li>
               <span>Official Name:</span>
-              {{ countriesStore.showCountry.country[0].name.official || 'No Official name' }}
+              {{ countriesStore.currentCountry.name.official || 'No Official name' }}
             </li>
             <li>
               <span>Population:</span>
               {{
-                countriesStore.showCountry.country[0].population.toLocaleString('en-US') ||
+                countriesStore.currentCountry.population.toLocaleString('en-US') ||
                 'No population'
               }}
             </li>
-            <li><span>Region:</span> {{ countriesStore.showCountry.country[0].region }}</li>
+            <li><span>Region:</span> {{ countriesStore.currentCountry.region }}</li>
             <li>
               <span>Sub Region:</span>
-              {{ countriesStore.showCountry.country[0].subregion || 'No sub region' }}
+              {{ countriesStore.currentCountry.subregion || 'No sub region' }}
             </li>
             <li>
               <span>Capital:</span>
-              {{ countriesStore.showCountry.country[0].capital[0] || 'No Capital' }}
+              {{ countriesStore.currentCountry.capital[0] || 'No Capital' }}
             </li>
           </ul>
         </div>
         <ul class="moreDetails">
           <li>
             <span>Alpha Code:</span>
-            {{ countriesStore.showCountry.country[0].cca3 || 'No Alpha Code' }}
+            {{ countriesStore.currentCountry.cca3 || 'No Alpha Code' }}
           </li>
           <li>
             <span>Currencies:</span>
-            {{ countriesStore.showCountry.country[0].currencies.name || 'No Currencies' }}
+            {{ countriesStore.currentCountry.currencies.name || 'No Currencies' }}
           </li>
           <li>
             <span>Languages:</span>
             {{
-              Object.values(countriesStore.showCountry.country[0].languages).join(', ') ||
+              Object.values(countriesStore.currentCountry.languages).join(', ') ||
               'No Languages'
             }}
           </li>
@@ -53,14 +53,14 @@
 
           <button
             class="darkStyleComponent"
-            v-show="countriesStore.countriesInBorder.length > 0"
-            v-for="(country, index) in countriesStore.countriesInBorder"
+            v-show="countriesStore.borderCountries.length > 0"
+            v-for="(country, index) in countriesStore.borderCountries"
             :key="index"
             @click.prevent="seeCountryInBorder(country.code)"
           >
             {{ country.name }}
           </button>
-          <p v-if="countriesStore.countriesInBorder.length == 0">No countries on border</p>
+          <p v-if="countriesStore.borderCountries.length == 0">No countries on border</p>
         </div>
       </div>
     </div>
@@ -72,18 +72,18 @@ import NoneFoundMessage from '../components/NoneFoundMessage.vue'
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '../router'
-import { useCountriesStore } from '../stores/counter'
+import { useCountriesStore } from '../stores/countries'
 
 const countriesStore = useCountriesStore()
 const route: any = useRoute()
 
 onMounted(async () => {
-  countriesStore.getDetailsCountry(route.params.country)
+  countriesStore.fetchCountryDetails(route.params.country)
 })
 
 const seeCountryInBorder = (countryOnView: string) => {
   router.replace(`/about/${countryOnView}`)
-  countriesStore.getDetailsCountry(countryOnView)
+  countriesStore.fetchCountryDetails(countryOnView)
 }
 </script>
 
