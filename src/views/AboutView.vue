@@ -20,14 +20,14 @@
                 'No population'
               }}
             </li>
-            <li><span>Region:</span> {{ countriesStore.currentCountry.region }}</li>
+            <li><span>Region:</span> {{ countriesStore.currentCountry.region || 'Region not found' }}</li>
             <li>
               <span>Sub Region:</span>
               {{ countriesStore.currentCountry.subregion || 'No sub region' }}
             </li>
             <li>
               <span>Capital:</span>
-              {{ countriesStore.currentCountry.capital[0] || 'No Capital' }}
+              {{ getCapital() || 'No Capital' }}
             </li>
           </ul>
         </div>
@@ -38,14 +38,11 @@
           </li>
           <li>
             <span>Currencies:</span>
-            {{ countriesStore.currentCountry.currencies.name || 'No Currencies' }}
+            {{ 'No Currencies' }}
           </li>
           <li>
             <span>Languages:</span>
-            {{
-              Object.values(countriesStore.currentCountry.languages).join(', ') ||
-              'No Languages'
-            }}
+            {{ getLanguages() || 'No Languages' }}
           </li>
         </ul>
         <div class="borderDetails">
@@ -53,14 +50,14 @@
 
           <button
             class="darkStyleComponent"
-            v-show="countriesStore.borderCountries.length > 0"
+            v-show="countriesStore.borderCountries"
             v-for="(country, index) in countriesStore.borderCountries"
             :key="index"
             @click.prevent="seeCountryInBorder(country.code)"
           >
             {{ country.name }}
           </button>
-          <p v-if="countriesStore.borderCountries.length == 0">No countries on border</p>
+          <p v-if="countriesStore.borderCountries.length == 0 ">No countries on border</p>
         </div>
       </div>
     </div>
@@ -84,6 +81,15 @@ onMounted(async () => {
 const seeCountryInBorder = (countryOnView: string) => {
   router.replace(`/about/${countryOnView}`)
   countriesStore.fetchCountryDetails(countryOnView)
+}
+
+const getCapital = ()=> countriesStore.currentCountry?.capital?.[0] ?? ''
+
+const getLanguages = () => {
+  const languages = countriesStore.currentCountry?.languages
+  if(languages){
+    return Object.values(languages).join(', ')
+  }
 }
 </script>
 

@@ -6,6 +6,6 @@
 
 <style scoped>
 div {
-  @apply w-full p-4 mt-4 font-semibold rounded-lg shadow-lg;
+  @apply w-full p-4 mt-4 bg-white font-semibold rounded-lg shadow-lg;
 }
 </style>

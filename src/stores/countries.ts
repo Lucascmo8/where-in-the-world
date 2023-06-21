@@ -1,11 +1,40 @@
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-export const useCountriesStore = defineStore('countries', () => {
-  const allCountries = ref<any[]>([])
+interface Flag{
+  alt:string;
+  png:string;
+}
 
-  const displayedCountries = ref<any[]>([])
+interface Name{
+  common:string;
+  official:string;
+}
+
+interface Country{
+  borders:string[] | undefined ;
+  capital?:string[];
+  cca3:string;
+  currencies:Record<string,string>;
+  flags:Flag;
+  languages:Record<string,string>;
+  name:Name;
+  population:number;
+  region:string;
+  subregion:string;
+  translations:Record<string,Name>;
+}
+
+interface BorderCountry{
+  name:string;
+  code:string;
+}
+
+export const useCountriesStore = defineStore('countries', () => {
+  const allCountries = ref<Country[]>([])
+
+  const displayedCountries = ref<Country[]>([])
 
   const selectedRegion = ref<string>('');
 
@@ -17,6 +46,7 @@ export const useCountriesStore = defineStore('countries', () => {
     } catch (error) {
       console.error('Error when searching for countries:', error);
     }
+    console.log(allCountries.value)
   })()
 
   const searchWithText = (text: string) => {
@@ -88,21 +118,30 @@ export const useCountriesStore = defineStore('countries', () => {
     })
   }
 
-  const currentCountry = ref<any>()
+  const currentCountry = ref<Country | undefined>()
 
-  const borderCountries = ref<any[]>([])
+  const borderCountries = ref<BorderCountry[] | any[]>([])
 
   const updateBorderCountries = () => {
-    borderCountries.value = currentCountry.value.borders
-      .filter((countryCode: string) => currentCountry.value.cca3 !== countryCode)
-      .map((countryCode: string) => {
-        const country = allCountries.value.find((c: any) => c.cca3 === countryCode);
-        return { name: country.name.common, code: country.cca3 };
-      });
-  };
+    if (currentCountry.value && currentCountry.value.borders) {
+      borderCountries.value = currentCountry.value.borders
+        .filter((countryCode: string) => currentCountry.value?.cca3 !== countryCode)
+        .map((countryCode: string) => {
+          const country = allCountries.value.find((c: any) => c.cca3 === countryCode)
+          return { name: country?.name.common, code: country?.cca3 }
+        })
+    } else {
+      borderCountries.value = []
+    }
+  }
+
+  watchEffect( async()=>{
+    if(borderCountries.value[0] && borderCountries.value[0].name == undefined){
+      updateBorderCountries()
+    }
+  })
   
   const fetchCountryDetails = async (countryCode: string) => {
-    borderCountries.value.pop();
     try {
       const response = await axios.get(`https://restcountries.com/v3.1/alpha/${countryCode}`);
       currentCountry.value = response.data[0];
@@ -110,6 +149,9 @@ export const useCountriesStore = defineStore('countries', () => {
     } catch (error) {
       console.error('Error when searching for countries:', error);
     }
+    console.log(currentCountry.value)
+    console.log(countryCode)
+    console.log(borderCountries.value)
   }
 
   return {
